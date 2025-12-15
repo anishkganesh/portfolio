@@ -16,8 +16,15 @@ const unlockAudio = () => {
 
   musicStarted = true
 
-  // Initialize and play music on first interaction
+  // Initialize music on first interaction
   if (!backgroundMusic) {
+    // Unlock the global audio context first
+    if (Howler.ctx && Howler.ctx.state === 'suspended') {
+      Howler.ctx.resume().then(() => {
+        console.log('AudioContext unlocked')
+      })
+    }
+
     backgroundMusic = new Howl({
       src: ['/audio/calm-ambient.mp3'],
       loop: true,
@@ -26,7 +33,16 @@ const unlockAudio = () => {
       preload: true,
       onload: () => {
         console.log('✓ Music loaded')
-        backgroundMusic.play()
+        // Play after AudioContext is ready
+        setTimeout(() => {
+          if (Howler.ctx.state === 'running') {
+            backgroundMusic.play()
+          } else {
+            Howler.ctx.resume().then(() => {
+              backgroundMusic.play()
+            })
+          }
+        }, 100)
       },
       onplay: () => {
         console.log('♪ Music playing')
