@@ -9,6 +9,7 @@ import { Howl } from 'howler'
 // Using local calming ambient track (Slow Motion by Bensound)
 let backgroundMusic = null
 let musicStarted = false
+let audioUnlocked = false
 
 // Initialize music
 backgroundMusic = new Howl({
@@ -17,49 +18,57 @@ backgroundMusic = new Howl({
   volume: 0.098,
   html5: false,
   preload: true,
-  onload: () => {
-    console.log('✓ Music loaded')
-    // Try to play immediately when loaded
-    if (!musicStarted) {
-      musicStarted = true
-      const playPromise = backgroundMusic.play()
-      if (playPromise !== undefined) {
-        playPromise.catch(() => {
-          console.log('Autoplay blocked - waiting for interaction')
-          musicStarted = false
-        })
-      }
-    }
-  },
+  onload: () => console.log('✓ Music loaded'),
   onplay: () => console.log('♪ Music playing'),
   onplayerror: () => {
-    console.log('Autoplay blocked')
+    console.log('Play blocked - will retry on interaction')
     musicStarted = false
   }
 })
 
-// Unlock audio on ANY user interaction (very aggressive)
-const unlockAudio = () => {
+// Unlock and start audio on ANY user interaction
+const unlockAudio = async () => {
+  if (!audioUnlocked) {
+    audioUnlocked = true
+
+    // Get the Howler audio context and resume it
+    const ctx = Howler.ctx
+    if (ctx && ctx.state === 'suspended') {
+      try {
+        await ctx.resume()
+        console.log('AudioContext resumed')
+      } catch (e) {
+        console.log('Failed to resume AudioContext:', e)
+      }
+    }
+  }
+
+  // Play the music
   if (!musicStarted && backgroundMusic) {
     musicStarted = true
-    backgroundMusic.play()
-    // Remove all listeners after first play
-    document.removeEventListener('touchstart', unlockAudio, true)
-    document.removeEventListener('touchend', unlockAudio, true)
-    document.removeEventListener('click', unlockAudio, true)
-    document.removeEventListener('keydown', unlockAudio, true)
-    document.removeEventListener('scroll', unlockAudio, true)
-    window.removeEventListener('mousemove', unlockAudio, true)
+    try {
+      backgroundMusic.play()
+      // Remove all listeners after successful play
+      document.removeEventListener('touchstart', unlockAudio, true)
+      document.removeEventListener('touchend', unlockAudio, true)
+      document.removeEventListener('click', unlockAudio, true)
+      document.removeEventListener('keydown', unlockAudio, true)
+      document.removeEventListener('scroll', unlockAudio, true)
+      window.removeEventListener('mousemove', unlockAudio, true)
+    } catch (e) {
+      console.log('Play failed:', e)
+      musicStarted = false
+    }
   }
 }
 
-// Listen to EVERYTHING in capture phase
+// Listen to EVERYTHING in capture phase for immediate playback
 document.addEventListener('touchstart', unlockAudio, { capture: true, passive: true })
 document.addEventListener('touchend', unlockAudio, { capture: true, passive: true })
 document.addEventListener('click', unlockAudio, { capture: true })
 document.addEventListener('keydown', unlockAudio, { capture: true })
 document.addEventListener('scroll', unlockAudio, { capture: true, passive: true })
-window.addEventListener('mousemove', unlockAudio, { capture: true, passive: true, once: true })
+window.addEventListener('mousemove', unlockAudio, { capture: true, passive: true })
 
 // ===== LENIS SMOOTH SCROLL =====
 const lenis = new Lenis({
