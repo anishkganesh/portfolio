@@ -10,31 +10,43 @@ import { Howl } from 'howler'
 let backgroundMusic = null
 let musicStarted = false
 
-// Initialize music
+// Initialize music with autoplay
 backgroundMusic = new Howl({
   src: ['/audio/calm-ambient.mp3'],
   loop: true,
   volume: 0.098,
-  autoplay: false,
+  autoplay: true, // Start immediately on page load
   html5: false,
   preload: true,
   onload: () => console.log('✓ Music loaded'),
-  onplay: () => console.log('♪ Music playing')
-})
-
-// Start on ANY interaction
-const startMusic = () => {
-  if (!musicStarted) {
-    musicStarted = true
-    backgroundMusic.play()
+  onplay: () => console.log('♪ Music playing'),
+  onloaderror: (id, error) => {
+    console.log('Music load error:', error)
+    // Fallback: try playing on first user interaction if autoplay fails
+    const startMusic = () => {
+      if (!musicStarted) {
+        musicStarted = true
+        backgroundMusic.play()
+        document.removeEventListener('click', startMusic)
+        document.removeEventListener('touchstart', startMusic)
+      }
+    }
+    document.addEventListener('click', startMusic, { once: true })
+    document.addEventListener('touchstart', startMusic, { once: true })
+  },
+  onplayerror: () => {
+    console.log('Autoplay blocked - will start on first interaction')
+    // Fallback: try playing on first user interaction if autoplay is blocked
+    const startMusic = () => {
+      if (!musicStarted) {
+        musicStarted = true
+        backgroundMusic.play()
+      }
+    }
+    document.addEventListener('click', startMusic, { once: true })
+    document.addEventListener('touchstart', startMusic, { once: true })
   }
-}
-
-// Capture phase ensures this fires first
-document.addEventListener('click', startMusic, { capture: true })
-document.addEventListener('keydown', startMusic, { capture: true })
-document.addEventListener('scroll', startMusic, { passive: true })
-document.addEventListener('touchstart', startMusic, { capture: true })
+})
 
 // ===== LENIS SMOOTH SCROLL =====
 const lenis = new Lenis({

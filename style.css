@@ -159,7 +159,7 @@ body {
 
 /* Typography */
 h1 {
-  font-size: clamp(2.5rem, 8vw, 4.5rem);
+  font-size: clamp(2.125rem, 6.8vw, 3.825rem);
   font-weight: 400;
   letter-spacing: -0.03em;
   line-height: 1.1;
@@ -168,7 +168,7 @@ h1 {
 }
 
 h3 {
-  font-size: 1.25rem;
+  font-size: 1.0625rem;
   font-weight: 500;
   margin-bottom: 0.25rem;
   color: var(--color-accent);
@@ -176,7 +176,7 @@ h3 {
 }
 
 h4 {
-  font-size: 1rem;
+  font-size: 0.85rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
   color: var(--color-accent);
@@ -184,14 +184,14 @@ h4 {
 }
 
 p {
-  font-size: 1rem;
+  font-size: 0.85rem;
   line-height: 1.6;
   color: var(--color-text-dim);
   font-weight: 400;
 }
 
 .large-text {
-  font-size: clamp(1.2rem, 2.5vw, 1.8rem);
+  font-size: clamp(1.02rem, 2.125vw, 1.53rem);
   line-height: 1.4;
   color: var(--color-text);
   font-weight: 300;
@@ -201,7 +201,7 @@ p {
 }
 
 .section-label {
-  font-size: 0.7rem;
+  font-size: 0.595rem;
   text-transform: uppercase;
   letter-spacing: 0.2em;
   color: var(--color-text-dim);
@@ -221,7 +221,7 @@ p {
 }
 
 .hero-section p {
-  font-size: 1rem;
+  font-size: 0.85rem;
   color: var(--color-text-dim);
   font-weight: 300;
   letter-spacing: 0.05em;
@@ -254,7 +254,7 @@ p {
 }
 
 .expertise-item p {
-  font-size: 0.9rem;
+  font-size: 0.765rem;
   margin-top: 0.5rem;
 }
 
@@ -301,12 +301,12 @@ p {
 }
 
 .work-info p {
-  font-size: 0.9rem;
+  font-size: 0.765rem;
   margin-top: 0.25rem;
 }
 
 .work-year {
-  font-size: 0.9rem;
+  font-size: 0.765rem;
   color: var(--color-text-dim);
   font-weight: 400;
   font-variant-numeric: tabular-nums;
@@ -324,7 +324,7 @@ p {
 }
 
 .contact-links a {
-  font-size: 1.5rem;
+  font-size: 1.275rem;
   color: var(--color-text);
   text-decoration: none;
   font-weight: 400;
@@ -374,7 +374,7 @@ p {
   }
 
   .work-year {
-    font-size: 0.8rem;
+    font-size: 0.68rem;
   }
 
   .section-label {
