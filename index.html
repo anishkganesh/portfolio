@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>Anish Krishnan Ganesh</title>
+  </head>
+  <body>
+    <canvas id="webgl"></canvas>
+
+    <!-- Minimal Navigation Indicator -->
+    <nav class="section-nav">
+      <div class="nav-item" data-section="0">
+        <div class="nav-dot"></div>
+        <span class="nav-label">Home</span>
+      </div>
+      <div class="nav-item" data-section="1">
+        <div class="nav-dot"></div>
+        <span class="nav-label">About</span>
+      </div>
+      <div class="nav-item" data-section="2">
+        <div class="nav-dot"></div>
+        <span class="nav-label">Education</span>
+      </div>
+      <div class="nav-item" data-section="3">
+        <div class="nav-dot"></div>
+        <span class="nav-label">Experience</span>
+      </div>
+      <div class="nav-item" data-section="4">
+        <div class="nav-dot"></div>
+        <span class="nav-label">Connect</span>
+      </div>
+    </nav>
+
+    <div id="scroll-container">
+      <section class="section hero-section">
+        <div class="content">
+          <h1>Anish Ganesh</h1>
+          <p>CS (BS, MS) + Wharton @ UPenn | SWE Intern @ Cisco Meraki | Co-Founder @ Conquerly</p>
+        </div>
+      </section>
+
+      <section class="section about-section">
+        <div class="content">
+          <div class="section-label">About</div>
+          <p class="large-text">
+            21-year-old Computer Science student passionate about turning complex problems into innovative solutions, blending logical problem-solving with a deep curiosity for emerging trends.
+          </p>
+          <div class="expertise-grid">
+            <div class="expertise-item">
+              <h4>Machine Learning & Data Science</h4>
+              <p>PyTorch, TensorFlow, LangChain, RAG, Vector DBs</p>
+            </div>
+            <div class="expertise-item">
+              <h4>Full Stack Development</h4>
+              <p>Django, FastAPI, React, Node.js, PostgreSQL, MongoDB</p>
+            </div>
+            <div class="expertise-item">
+              <h4>Cloud Computing & DevOps</h4>
+              <p>AWS, Azure ML, GCP, Docker, Kubernetes, Spark, Kafka</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section education-section">
+        <div class="content">
+          <div class="section-label">Education</div>
+          <div class="work-list">
+            <a href="#" class="work-item">
+              <div class="work-info">
+                <h3>Master of Science in Engineering (MSE), Computer Science</h3>
+                <p>University of Pennsylvania • Accelerated Masters • GPA: 4.0</p>
+              </div>
+              <span class="work-year">2024 - 2026</span>
+            </a>
+            <a href="#" class="work-item">
+              <div class="work-info">
+                <h3>Bachelor of Science in Engineering (BSE), Computer Science</h3>
+                <p>University of Pennsylvania • AI Concentration • Minors: Mathematics, Data Science, Statistics</p>
+              </div>
+              <span class="work-year">2022 - 2026</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section work-section">
+        <div class="content">
+          <div class="section-label">Experience</div>
+          <div class="work-list">
+            <a href="#" class="work-item">
+              <div class="work-info">
+                <h3>Graduate Teaching Assistant</h3>
+                <p>University of Pennsylvania • CIS 5210 (Artificial Intelligence)</p>
+              </div>
+              <span class="work-year">2025</span>
+            </a>
+            <a href="#" class="work-item">
+              <div class="work-info">
+                <h3>Software Engineer Intern</h3>
+                <p>Cisco Meraki • Cisco AI Assistant LLMOps Infra</p>
+              </div>
+              <span class="work-year">2025</span>
+            </a>
+            <a href="https://thelooki.com" class="work-item" target="_blank">
+              <div class="work-info">
+                <h3>Co-Founder</h3>
+                <p>Looki • Agentic Fashion Intelligence</p>
+              </div>
+              <span class="work-year">2025</span>
+            </a>
+            <a href="#" class="work-item">
+              <div class="work-info">
+                <h3>Software Engineer Intern</h3>
+                <p>GeakMinds, Inc • NLP Trading Signals</p>
+              </div>
+              <span class="work-year">2024</span>
+            </a>
+            <a href="#" class="work-item">
+              <div class="work-info">
+                <h3>Software Engineer Intern</h3>
+                <p>Juniper Networks • Mist AI / JUNOS Intelligence</p>
+              </div>
+              <span class="work-year">2023</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section contact-section">
+        <div class="content">
+          <div class="section-label">Connect</div>
+          <div class="contact-links">
+            <a href="mailto:anishg@seas.upenn.edu">anishg@seas.upenn.edu</a>
+            <a href="https://linkedin.com/in/anishkganesh" target="_blank">LinkedIn</a>
+            <a href="https://anishkganesh.com" target="_blank">Website</a>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>
