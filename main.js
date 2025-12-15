@@ -8,26 +8,33 @@ import { Howl } from 'howler'
 // ===== CALMING BACKGROUND MUSIC with Howler.js =====
 // Using local calming ambient track (Slow Motion by Bensound)
 let backgroundMusic = null
+let musicStarted = false
 
-// Initialize and autoplay music after page loads
-window.addEventListener('load', () => {
-  setTimeout(() => {
-    backgroundMusic = new Howl({
-      src: ['/audio/calm-ambient.mp3'],
-      loop: true,
-      volume: 0.098, // 50% quieter than 0.196 (0.196 * 0.5 = 0.098)
-      autoplay: true, // Start automatically
-      html5: false,
-      onload: () => console.log('✓ Music loaded'),
-      onplay: () => console.log('♪ Music playing'),
-      onplayerror: () => {
-        // Browser blocked autoplay - retry on interaction
-        const retry = () => backgroundMusic.play()
-        window.addEventListener('click', retry, { once: true })
-      }
-    })
-  }, 100)
+// Initialize music
+backgroundMusic = new Howl({
+  src: ['/audio/calm-ambient.mp3'],
+  loop: true,
+  volume: 0.098,
+  autoplay: false,
+  html5: false,
+  preload: true,
+  onload: () => console.log('✓ Music loaded'),
+  onplay: () => console.log('♪ Music playing')
 })
+
+// Start on ANY interaction
+const startMusic = () => {
+  if (!musicStarted) {
+    musicStarted = true
+    backgroundMusic.play()
+  }
+}
+
+// Capture phase ensures this fires first
+document.addEventListener('click', startMusic, { capture: true })
+document.addEventListener('keydown', startMusic, { capture: true })
+document.addEventListener('scroll', startMusic, { passive: true })
+document.addEventListener('touchstart', startMusic, { capture: true })
 
 // ===== LENIS SMOOTH SCROLL =====
 const lenis = new Lenis({
