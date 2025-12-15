@@ -9,56 +9,42 @@ import { Howl } from 'howler'
 // Using local calming ambient track (Slow Motion by Bensound)
 let backgroundMusic = null
 let musicStarted = false
-let audioUnlocked = false
-
-// Initialize music
-backgroundMusic = new Howl({
-  src: ['/audio/calm-ambient.mp3'],
-  loop: true,
-  volume: 0.098,
-  html5: false,
-  preload: true,
-  onload: () => console.log('✓ Music loaded'),
-  onplay: () => console.log('♪ Music playing'),
-  onplayerror: () => {
-    console.log('Play blocked - will retry on interaction')
-    musicStarted = false
-  }
-})
 
 // Unlock and start audio on ANY user interaction
-const unlockAudio = async () => {
-  if (!audioUnlocked) {
-    audioUnlocked = true
+const unlockAudio = () => {
+  if (musicStarted) return
 
-    // Get the Howler audio context and resume it
-    const ctx = Howler.ctx
-    if (ctx && ctx.state === 'suspended') {
-      try {
-        await ctx.resume()
-        console.log('AudioContext resumed')
-      } catch (e) {
-        console.log('Failed to resume AudioContext:', e)
+  musicStarted = true
+
+  // Initialize and play music on first interaction
+  if (!backgroundMusic) {
+    backgroundMusic = new Howl({
+      src: ['/audio/calm-ambient.mp3'],
+      loop: true,
+      volume: 0.098,
+      html5: false,
+      preload: true,
+      onload: () => {
+        console.log('✓ Music loaded')
+        backgroundMusic.play()
+      },
+      onplay: () => {
+        console.log('♪ Music playing')
+        // Remove all listeners after successful play
+        document.removeEventListener('touchstart', unlockAudio, true)
+        document.removeEventListener('touchend', unlockAudio, true)
+        document.removeEventListener('click', unlockAudio, true)
+        document.removeEventListener('keydown', unlockAudio, true)
+        document.removeEventListener('scroll', unlockAudio, true)
+        window.removeEventListener('mousemove', unlockAudio, true)
+      },
+      onplayerror: () => {
+        console.log('Play blocked')
+        musicStarted = false
       }
-    }
-  }
-
-  // Play the music
-  if (!musicStarted && backgroundMusic) {
-    musicStarted = true
-    try {
-      backgroundMusic.play()
-      // Remove all listeners after successful play
-      document.removeEventListener('touchstart', unlockAudio, true)
-      document.removeEventListener('touchend', unlockAudio, true)
-      document.removeEventListener('click', unlockAudio, true)
-      document.removeEventListener('keydown', unlockAudio, true)
-      document.removeEventListener('scroll', unlockAudio, true)
-      window.removeEventListener('mousemove', unlockAudio, true)
-    } catch (e) {
-      console.log('Play failed:', e)
-      musicStarted = false
-    }
+    })
+  } else {
+    backgroundMusic.play()
   }
 }
 
