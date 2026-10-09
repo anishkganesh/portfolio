@@ -1,161 +1,85 @@
-# AI/ML Engineer Portfolio - Surreal 3D Experience
+# Anish Ganesh — interactive portfolio
 
-An immersive, surreal 3D portfolio showcasing AI/ML/DL expertise through advanced WebGL effects and neural network visualizations.
+A personal portfolio website with a Three.js background, an animated network-like shape, smooth scrolling, and sections for education, experience, and contact information.
 
-## ✨ Features
+## Overview
 
-### 🧠 **AI/ML Themed Visualizations**
-- **3D Neural Network**: Animated 5-layer neural network with pulsing nodes and flowing connections
-- **Real-time data particles**: 1000+ particles representing data streams
-- **AI-focused content**: Highlighting deep learning, computer vision, NLP, and transformer models
+This project is a static web experience built with Vite and browser JavaScript. HTML holds the portfolio content while a separate WebGL scene responds to time, scrolling, and pointer interaction.
 
-### 🎨 **Cutting-Edge Visual Effects**
+## Features
 
-**Raymarched Metaballs:**
-- Custom GLSL shader using signed distance fields (SDFs)
-- 5 liquid blobs merging and separating in real-time
-- Smooth minimum blending for organic fluid motion
-- Dynamic lighting with Fresnel effects
-- Blue/magenta/cyan color gradient
+- A deforming icosahedron with a physical material, glowing nodes, and connecting lines.
+- A particle field, animated lighting, and bloom post-processing.
+- Pointer raycasting and scroll-driven changes to the scene.
+- Smooth scrolling, animated section reveals, and section navigation.
+- An ambient audio track started after user interaction.
 
-**Holographic Torus:**
-- Fresnel-based edge glow
-- Animated scan lines
-- Color-shifting between cyan and magenta
-- Vertex displacement animation
+## Architecture
 
-**Neural Network Visualization:**
-- 52 interconnected nodes across 5 layers
-- Pulsing animation simulating data flow
-- Glowing connections with variable opacity
-- Metallic materials with emissive properties
+`index.html` supplies the content and canvas. `main.js` initializes the Three.js scene and post-processing composer, coordinates Lenis scrolling and GSAP reveals, and updates geometry and material properties in the animation loop. Howler handles audio playback.
 
-**Post-Processing Pipeline:**
-- Bloom effect for ethereal glow
-- Chromatic aberration for surreal distortion
-- Vignette for depth and focus
-- Sporadic glitch effect for sci-fi aesthetic
+The central shape is a Three.js mesh whose vertices are updated in JavaScript. The network motif is a visual effect, not a neural-network computation. The committed code does not implement the raymarched SDF scene described in earlier documentation.
 
-### 🎬 **Advanced Interactions**
-- Mouse parallax affecting camera and scene elements
-- Smooth scroll-based camera movement
-- Fade-in animations with Intersection Observer
-- Orbiting dynamic lights (cyan and magenta)
-- Atmospheric fog for depth
+## Tech stack
 
-## 🛠 Tech Stack
+| Tool | Role |
+| --- | --- |
+| Vite 5 | Development server and static build |
+| Three.js | WebGL scene, geometry, materials, and raycasting |
+| `postprocessing` | Render passes and bloom |
+| GSAP | DOM reveal animation |
+| Lenis | Smooth scrolling |
+| Howler | Ambient audio |
+| HTML/CSS | Portfolio content and layout |
 
-- **Three.js** - 3D rendering and WebGL
-- **pmndrs/postprocessing** - Professional-grade post-processing effects
-- **GSAP** - Smooth animations
-- **Custom GLSL Shaders** - Raymarching, metaballs, holographic effects
-- **Vite** - Lightning-fast development
-- **Inter Font** - Modern, clean typography
+## Project structure
 
-## 🚀 Getting Started
+- `index.html` — portfolio sections and canvas.
+- `main.js` — rendering, interaction, scrolling, and audio.
+- `style.css` — page styling.
+- `public/audio/calm-ambient.mp3` — audio asset.
+- `dist/` — committed build artifacts; regenerate when deploying changes.
+- `package.json` — dependency versions and scripts.
 
-### Install
+## Run locally
+
 ```bash
+git clone https://github.com/anishkganesh/portfolio.git
+cd portfolio
 npm install
-```
-
-### Development
-```bash
 npm run dev
 ```
-Visit: **http://localhost:5173/**
 
-### Build
+Open the local address printed by Vite, normally `http://localhost:5173`. No dependency lockfile is committed, so installation resolves versions from `package.json`.
+
+## Configuration and data
+
+No backend, database, API keys, or environment variables are required. Text, destinations, and contact links live in `index.html`; visual and audio settings live in `main.js` and `style.css`.
+
+## Usage
+
+Scroll through the sections, hover over the main shape, and use the section navigation. Audio depends on a user interaction because browsers restrict autoplay.
+
+## Validation
+
 ```bash
 npm run build
-```
-
-### Preview
-```bash
 npm run preview
 ```
 
-## 🎯 What Makes This Surreal
+No lint or automated test script is configured. Check rendering, resizing, section navigation, pointer interactions, and audio in the browsers you intend to support. This documentation review did not establish a runtime or performance benchmark.
 
-1. **Raymarched Metaballs** - Not pre-rendered geometry, calculated in real-time per pixel
-2. **Multiple Visual Layers** - Neural network, metaballs, torus, and particles all coexisting
-3. **Advanced Shader Effects** - Fresnel, SDFs, smooth minimum, scan lines
-4. **Post-Processing** - Bloom, chromatic aberration, glitch, vignette
-5. **Dynamic Lighting** - Orbiting colored point lights
-6. **Organic Motion** - Everything moves and pulses continuously
-7. **AI/ML Aesthetic** - Every element relates to machine learning/data visualization
+## Deployment
 
-## 📐 Scene Elements
+Build with `npm run build` and publish `dist/` to a static host. Preserve the audio asset at the path expected by the application. Review Vite's base path and root-relative URLs if hosting under a subdirectory.
 
-| Element | Technology | Purpose |
-|---------|-----------|---------|
-| Metaballs | Raymarching + SDF | Main surreal centerpiece |
-| Neural Net | 3D Mesh + Lines | AI/ML visualization |
-| Holographic Torus | Custom Shader | Sci-fi accent |
-| Data Particles | Point Cloud | Ambient atmosphere |
-| Bloom | Post-processing | Ethereal glow |
-| Chromatic Aberration | Post-processing | Surreal distortion |
-| Glitch | Post-processing | Digital aesthetic |
+## Limitations
 
-## 🎨 Customization
+- WebGL rendering and bloom require graphics resources and can perform differently across devices.
+- Sound is subject to browser autoplay rules.
+- The HTML contains some placeholder `#` destinations and references a `/vite.svg` favicon that is not included in this snapshot.
+- Personal content should be updated separately when roles, dates, or links change.
 
-### Colors
-Edit shader uniforms in `main.js`:
-```javascript
-uColor1: { value: new THREE.Color(0x0066ff) }, // Blue
-uColor2: { value: new THREE.Color(0xff00ff) }, // Magenta
-uColor3: { value: new THREE.Color(0x00ffff) }  // Cyan
-```
+## Attribution and license
 
-### Content
-Update AI/ML content in `index.html`:
-- Hero: Your title and specialization
-- Expertise: Your tech stack and skills
-- Research & Projects: Your work
-- Connect: Your links (arXiv, GitHub, etc.)
-
-### Effects Intensity
-Adjust post-processing in `main.js`:
-```javascript
-bloomEffect.intensity = 1.2  // Glow strength
-chromaticAberration.offset  // RGB separation
-vignetteEffect.darkness     // Edge darkening
-```
-
-## 🔥 Performance
-
-- 60fps on modern hardware
-- Hardware-accelerated raymarching
-- Optimized particle systems
-- Efficient post-processing pipeline
-- Adaptive pixel ratio
-
-## 🌐 Browser Support
-
-- Chrome 90+
-- Firefox 88+
-- Safari 14+
-- Edge 90+
-
-Requires WebGL 2.0 support.
-
-## 📚 Research-Backed Techniques
-
-All visual effects are based on cutting-edge 2024-2025 WebGL research:
-- Codrops raymarching tutorials
-- pmndrs post-processing library
-- TensorSpace neural network visualization
-- Signed distance field rendering
-- Metaball smooth minimum blending
-
-## 📄 License
-
-MIT
-
----
-
-**Built with research from:**
-- Codrops (raymarching, metaballs, holographic effects)
-- pmndrs (post-processing pipeline)
-- TensorSpace (neural network visualization)
-- Three.js community (shader techniques)
+The audio source is identified in the code as Bensound's “Slow Motion”; verify the applicable asset usage terms before redistributing it. Dependencies retain their own licenses. No standalone project license file is included; this README does not grant a new license.
